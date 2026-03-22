@@ -1,0 +1,3 @@
+What is AI?
+Explain entropy.
+What is overfitting?

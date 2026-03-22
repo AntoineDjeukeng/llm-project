@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "scripts/**"
+      - "prompts/**"
       - ".github/workflows/**"
       - "requirements.txt"
 
