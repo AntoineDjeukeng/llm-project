@@ -1,0 +1,42 @@
+name: LLM Experiment CI
+
+on:
+  push:
+    paths:
+      - "scripts/**"
+      - ".github/workflows/**"
+      - "requirements.txt"
+
+jobs:
+  run-experiment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run inference
+        run: python scripts/run_inference.py
+
+      - name: Evaluate results
+        run: python scripts/evaluate.py
+
+      - name: Show results
+        run: |
+          ls -R
+          cat results/output.json
+          cat results/metrics.txt
+
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: llm-results
+          path: results/
